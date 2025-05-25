@@ -1,10 +1,20 @@
 import express from "express";
 // import indexRouter from "../routes/index.ts";
+import cors from "cors";
 import Scrapping from "./scrape.ts";
 // import "./style.css";
-
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 3001;
+
+app.use(cors());
+
+app.get("/", async (req, res) => {
+  try {
+    await res.send("Welcome to screenshot api tool!");
+  } catch (err) {
+    console.error("Error: ", err);
+  }
+});
 
 app.get("/screenshot", async (req, res) => {
   try {
