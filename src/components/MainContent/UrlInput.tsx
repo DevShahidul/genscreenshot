@@ -1,36 +1,10 @@
 import { Globe, Wand2 } from 'lucide-react';
 import React, { useState } from 'react';
-const apiUrl = import.meta.env.VITE_API_URL;
+import { useScreenshot } from '../../context/ScreenshotContext';
 
-
-interface UrlInputProps {
-   setImageUrl: (url: string) => void;
-   isLoading: boolean;
-   setLoading: (status: boolean) => void;
-}
-
-const UrlInput: React.FC<UrlInputProps> = ({ setImageUrl, isLoading, setLoading }) => {
+const UrlInput: React.FC = () => {
    const [url, setUrl] = useState('');
-   // const [loading, setLoading] = useState(false);
-
-   const handleCapture = async () => {
-      if (!url) return;
-      setLoading(true);
-
-      try {
-         const response = await fetch(`${apiUrl}screenshot?url=${url}`);
-         if (!response.ok) throw new Error('Network response was not ok');
-         const blob = await response.blob();
-         const imageUrl = URL.createObjectURL(blob);
-         // console.log("Response from try block: ", blob, imageUrl);
-
-         setImageUrl(imageUrl);
-      } catch (error) {
-         console.error('Fetch error:', error);
-      } finally {
-         setLoading(false);
-      }
-   };
+   const { handleCapture, isLoading } = useScreenshot();
 
    return (
       <div className="space-y-3">
@@ -53,7 +27,7 @@ const UrlInput: React.FC<UrlInputProps> = ({ setImageUrl, isLoading, setLoading 
                <button
                   type="button"
                   className={`h-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-r-md transition-colors flex items-center space-x-1 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-700 cursor-pointer ${isLoading ? 'opacity-35 pointer-events-none' : 'opacity-100'}`}
-                  onClick={handleCapture}
+                  onClick={() => handleCapture(url)}
                   disabled={isLoading}
                >
                   <Wand2 size={16} />

@@ -18,8 +18,14 @@ app.get("/", async (req, res) => {
 
 app.get("/screenshot", async (req, res) => {
   try {
-    const url = req.query?.url;
-    const screenshot = await Scrapping(url);
+    const screenshot = await Scrapping({
+      url: req.query?.url,
+      width: req.query?.width,
+      height: req.query?.height,
+      selectedDevice: req.query?.selectedDevice,
+      scaleFactor: req.query?.scaleFactor,
+      fullPage: req.query?.fullPage,
+    });
     res.set("Content-Type", "image/png");
     res.send(screenshot);
     return;

@@ -1,5 +1,5 @@
 import { Menu } from 'lucide-react';
-import React, { useState } from 'react';
+import React from 'react';
 import ScreenshotPreview from './ScreenshotPreview';
 import UrlInput from './UrlInput';
 
@@ -9,8 +9,6 @@ interface MainContentProps {
 }
 
 const MainContent: React.FC<MainContentProps> = ({ sidebarOpen, setSidebarOpen }) => {
-   const [imageUrl, setImageUrl] = useState<string | null>(null);
-   const [loading, setLoading] = useState<boolean>(false);
 
    return (
       <div className="flex-1 flex flex-col overflow-hidden">
@@ -34,9 +32,9 @@ const MainContent: React.FC<MainContentProps> = ({ sidebarOpen, setSidebarOpen }
          <main className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 bg-gray-50 dark:bg-gray-900">
             <div className="max-w-4xl mx-auto">
                <div className="mb-8">
-                  <UrlInput setImageUrl={setImageUrl} setLoading={setLoading} isLoading={loading} />
+                  <UrlInput />
                </div>
-               <ScreenshotPreview screenshotUrl={imageUrl} isLoading={loading} />
+               <ScreenshotPreview />
             </div>
          </main>
       </div>

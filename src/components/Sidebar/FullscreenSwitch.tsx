@@ -1,8 +1,9 @@
 import { Maximize2 } from 'lucide-react';
-import React, { useState } from 'react';
+import React from 'react';
+import { useScreenshot } from '../../context/ScreenshotContext';
 
 const FullscreenSwitch: React.FC = () => {
-   const [isFullscreen, setIsFullscreen] = useState(false);
+   const { isFullScreen, setIsFullScreen } = useScreenshot();
 
    return (
       <div className="space-y-2">
@@ -16,8 +17,8 @@ const FullscreenSwitch: React.FC = () => {
                   type="checkbox"
                   id="fullscreen-switch"
                   className="sr-only peer"
-                  checked={isFullscreen}
-                  onChange={() => setIsFullscreen(!isFullscreen)}
+                  checked={isFullScreen}
+                  onChange={() => setIsFullScreen(!isFullScreen)}
                />
                <div className="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
             </label>

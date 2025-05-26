@@ -1,17 +1,13 @@
 import { Download, RefreshCw } from 'lucide-react';
 import React from 'react';
+import { useScreenshot } from '../../context/ScreenshotContext';
 
-interface ScreenshotPreviewProps {
-   screenshotUrl?: string | null;
-   isLoading: boolean
-}
-
-const ScreenshotPreview: React.FC<ScreenshotPreviewProps> = ({ screenshotUrl, isLoading }) => {
-   // This would normally contain state and logic for the screenshot
+const ScreenshotPreview: React.FC = () => {
+   const { imageUrl, isLoading } = useScreenshot();
 
    const handleDownload = () => {
       const link = document.createElement("a");
-      link.href = screenshotUrl ?? '';
+      link.href = imageUrl ?? '';
       link.download = "screenshot.png"; // 💡 You can make the filename dynamic if needed
       document.body.appendChild(link);
       link.click();
@@ -23,8 +19,8 @@ const ScreenshotPreview: React.FC<ScreenshotPreviewProps> = ({ screenshotUrl, is
          <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-semibold">Screenshot Preview</h2>
             <button
-               className="flex items-center space-x-1 px-3 py-1.5 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors cursor-pointer"
-               disabled={!screenshotUrl}
+               className={`flex items-center space-x-1 px-3 py-1.5 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors cursor-pointer ${(!imageUrl && isLoading) && 'pointer-events-none'}`}
+               disabled={!imageUrl && isLoading}
                onClick={handleDownload}
             >
                <Download size={16} />
@@ -40,9 +36,9 @@ const ScreenshotPreview: React.FC<ScreenshotPreviewProps> = ({ screenshotUrl, is
                      <p className="text-sm text-gray-600 dark:text-gray-400">Generating screenshot...</p>
                   </div>
                </div>
-            ) : screenshotUrl ? (
+            ) : imageUrl ? (
                <img
-                  src={screenshotUrl}
+                  src={imageUrl}
                   alt="Website Screenshot"
                   className="w-full h-auto"
                />
