@@ -1,9 +1,16 @@
 import { Smartphone } from 'lucide-react';
 import React, { useState } from 'react';
+import { useScreenshot } from '../../context/ScreenshotContext';
 import { devicesList } from '../../data/devices';
 
 const DeviceSelector: React.FC = () => {
    const [selectedDevice, setSelectedDevice] = useState<string>('');
+   const { setDevice } = useScreenshot();
+
+   const handleSelectedDevice = (value: string): void => {
+      setSelectedDevice(value);
+      setDevice(value);
+   }
 
    return (
       <div className="space-y-2">
@@ -13,7 +20,7 @@ const DeviceSelector: React.FC = () => {
          </div>
          <select
             value={selectedDevice}
-            onChange={(e) => setSelectedDevice(e.target.value)}
+            onChange={(e) => handleSelectedDevice(e.target.value)}
             className="w-full px-3 py-2 text-sm rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-colors"
          >
             <option value="">Select a device</option>

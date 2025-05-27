@@ -5,7 +5,6 @@ interface ScrappingProps {
   selectedDevice: string | null;
   width: number;
   height: number;
-  scaleFactor: number;
   fullPage: boolean;
 }
 
@@ -16,7 +15,6 @@ const Scrapping = async ({
   width = 1920,
   height = 1080,
   selectedDevice = null,
-  scaleFactor = 1,
   fullPage = false,
 }: ScrappingProps) => {
   if (!browser) {
@@ -36,13 +34,12 @@ const Scrapping = async ({
     await page.setViewport({
       width,
       height,
-      deviceScaleFactor: scaleFactor,
     });
   }
 
   await page.goto(url, { waitUntil: "networkidle2" });
   const screenshot = await page.screenshot({ fullPage });
-  await browser.close();
+  await page.close();
 
   return screenshot;
 };

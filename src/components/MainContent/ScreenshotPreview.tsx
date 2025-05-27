@@ -19,8 +19,8 @@ const ScreenshotPreview: React.FC = () => {
          <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-semibold">Screenshot Preview</h2>
             <button
-               className={`flex items-center space-x-1 px-3 py-1.5 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors cursor-pointer ${(!imageUrl && isLoading) && 'pointer-events-none'}`}
-               disabled={!imageUrl && isLoading}
+               className={`flex items-center space-x-1 px-3 py-1.5 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors cursor-pointer ${(!imageUrl || isLoading) && 'pointer-events-none'}`}
+               disabled={!imageUrl || isLoading}
                onClick={handleDownload}
             >
                <Download size={16} />
@@ -28,7 +28,7 @@ const ScreenshotPreview: React.FC = () => {
             </button>
          </div>
 
-         <div className="relative min-h-[400px] border border-gray-200 dark:border-gray-700 rounded-md overflow-hidden">
+         <div className="relative min-h-[400px] border border-gray-200 dark:border-gray-700 rounded-md overflow-hidden overflow-y-auto max-h-[50rem]">
             {isLoading ? (
                <div className="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-900">
                   <div className="flex flex-col items-center space-y-3">

@@ -20,11 +20,10 @@ app.get("/screenshot", async (req, res) => {
   try {
     const screenshot = await Scrapping({
       url: req.query?.url,
-      width: req.query?.width,
-      height: req.query?.height,
+      width: Number(req.query?.width),
+      height: Number(req.query?.height),
       selectedDevice: req.query?.selectedDevice,
-      scaleFactor: req.query?.scaleFactor,
-      fullPage: req.query?.fullPage,
+      fullPage: JSON.parse(req.query?.fullPage),
     });
     res.set("Content-Type", "image/png");
     res.send(screenshot);

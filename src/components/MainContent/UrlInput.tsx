@@ -26,9 +26,9 @@ const UrlInput: React.FC = () => {
             <div className="absolute inset-y-0 right-0 flex items-center">
                <button
                   type="button"
-                  className={`h-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-r-md transition-colors flex items-center space-x-1 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-700 cursor-pointer ${isLoading ? 'opacity-35 pointer-events-none' : 'opacity-100'}`}
+                  className={`h-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-r-md transition-colors flex items-center space-x-1 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-700 cursor-pointer ${url === '' || isLoading ? 'opacity-35 pointer-events-none' : 'opacity-100'}`}
                   onClick={() => handleCapture(url)}
-                  disabled={isLoading}
+                  disabled={url === '' || isLoading}
                >
                   <Wand2 size={16} />
                   <span>Capture</span>
