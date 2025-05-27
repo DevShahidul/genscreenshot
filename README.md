@@ -1,10 +1,48 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/NslCm9iG)
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=19618572&assignment_repo_type=AssignmentRepo)
+
 # Project 1 - Screenshot API Tool
+
+I built a Screenshot API tool with a React.js (TypeScript) frontend that offers features like setting custom viewports, selecting devices, and capturing full-page screenshots. The backend is powered by Node.js, Express, and Puppeteer to handle screenshot generation. For development, I used Vite and kept both the frontend and backend in a single project structure for simplicity, given the lightweight backend requirements. Additional tools include CORS for API handling and Lucide React for icons.
+
+# Instruction to run the app
+
+1. Step 1: Install the dependencies using the command below
+
+```
+pnpm install
+```
+
+or
+
+```
+npm install
+```
+
+2. Step 2: open terminal and run the following command to run the app
+
+#### Run backend
+
+```
+node api/main.ts
+```
+
+#### Run front end
+
+```
+pnpm dev
+```
+
+of
+
+```
+npm run dev
+```
 
 ## Submission Deadline: 25th May 6:00 PM
 
 ## Objective
+
 Build a tool that takes a website URL and returns a screenshot of that page.
 
 ---
@@ -12,6 +50,7 @@ Build a tool that takes a website URL and returns a screenshot of that page.
 ## Instructions
 
 ### 1. `scrape.js` – Screenshot Function
+
 - Create a file named `scrape.js` (or use another appropriate file name).
 - This file should export a function that:
   - Takes a **URL** as input.
@@ -23,11 +62,13 @@ Build a tool that takes a website URL and returns a screenshot of that page.
 ---
 
 ### 2. `main.js` – API Server
+
 - Create a file named `main.js`.
 - Use **Express**, **Fastify**, or **Hono** to build a simple server.
 - Create a **GET or POST** API endpoint (e.g., `/screenshot`).
 
 #### The API should:
+
 - Take a **URL** from the request (either query parameter or request body).
 - Use the function from `scrape.js` to take a screenshot.
 - Return the **screenshot** in the response (as an image or downloadable file).
@@ -35,7 +76,9 @@ Build a tool that takes a website URL and returns a screenshot of that page.
 ---
 
 ### 3. Bonus: Customization Features
+
 Allow the user to change the following settings via query parameters or request body:
+
 - `width` – width of the browser viewport
 - `height` – height of the browser viewport
 - `device` – device type (`mobile`, `tablet`, `desktop`)
@@ -43,6 +86,7 @@ Allow the user to change the following settings via query parameters or request 
 ---
 
 ## Notes
+
 - If you choose to use **Next.js**, make sure to:
   - Place the `scrape.js` file in an appropriate location.
   - Mention the **file path** of `scrape.js` when submitting the assignment.
