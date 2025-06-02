@@ -1,6 +1,7 @@
 // src/scrapper.ts
 
-import puppeteer, { Browser, Page } from "puppeteer";
+import puppeteer, { Browser, KnownDevices, Page } from "puppeteer";
+import { DeviceName } from "./devices";
 
 // Define interfaces for better type safety
 interface ActivePageEntry {
@@ -186,12 +187,13 @@ export class ScreenshotScrapper {
    */
   public async takeScreenshot(
     targetUrl: string,
-    width: number,
-    height: number,
-    fullPage: boolean
+    width: number = 1920,
+    height: number = 1080,
+    fullPage: boolean,
+    selectedDevice: DeviceName | null
   ): Promise<Buffer> {
     // Create a unique cache key for the screenshot based on all relevant parameters
-    const screenshotCacheKey = `${targetUrl}-${width}-${height}-${fullPage}`;
+    const screenshotCacheKey = `${targetUrl}-${width}-${height}-${fullPage}-${selectedDevice}`;
 
     // --- Caching Logic (Screenshot Buffer) ---
     const cachedScreenshot = this.screenshotCache.get(screenshotCacheKey);
@@ -229,8 +231,22 @@ export class ScreenshotScrapper {
         this.activePages.set(targetUrl, { page, lastAccessed: Date.now() });
       }
 
-      // Always set the viewport, even for cached pages, as dimensions might change per request
-      await page.setViewport({ width, height });
+      // Check if select any device
+      if (selectedDevice) {
+        const device = KnownDevices[selectedDevice];
+        if (device) {
+          await page.emulate(device);
+        } else {
+          console.warn(
+            `Device "${selectedDevice}" not found in Puppeteer.KnownDevices`
+          );
+        }
+      }
+
+      if (!selectedDevice && width && height) {
+        // Always set the viewport, even for cached pages, as dimensions might change per request
+        await page.setViewport({ width, height });
+      }
 
       // Handle Lazy Loading for Full page Screenshots
       if (fullPage) {

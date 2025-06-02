@@ -1,6 +1,8 @@
 import cors from "cors";
 import express, { Request, RequestHandler, Response } from "express";
+import { DeviceName } from "./devices";
 import { ScreenshotScrapper } from "./scrapper"; // Import the scrapper class
+import { isDeviceName } from "./utills";
 
 // Initialize Express app
 const app = express();
@@ -35,6 +37,7 @@ app.get("/", (req, res) => {
  * @queryparam {number} [width=1280] - The width of the viewport for the screenshot.
  * @queryparam {number} [height=800] - The height of the viewport for the screenshot.
  * @queryparam {boolean} [fullPage=false] - Whether to take a screenshot of the full scrollable page.
+ * @queryparam {selectedDevice}
  * @returns {image/png} The screenshot image.
  * @returns {json} Error message if URL is missing or invalid.
  */
@@ -43,6 +46,14 @@ app.get("/screenshot", (async (req: Request, res: Response) => {
   const width = parseInt(req.query.width as string) || 1280;
   const height = parseInt(req.query.height as string) || 800;
   const fullPage = req.query.fullPage === "true";
+  // const selectedDevice = req.query.selectedDevice || null;
+
+  const rawDevice = req.query.selectedDevice;
+  let selectedDevice: DeviceName | null = null;
+
+  if (isDeviceName(rawDevice)) {
+    selectedDevice = rawDevice;
+  }
 
   if (!targetUrl) {
     return res.status(400).json({ error: "URL query parameter is required." });
@@ -54,7 +65,8 @@ app.get("/screenshot", (async (req: Request, res: Response) => {
       targetUrl,
       width,
       height,
-      fullPage
+      fullPage,
+      selectedDevice
     );
 
     res.setHeader("Content-Type", "image/png");
