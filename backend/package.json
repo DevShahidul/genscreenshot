@@ -1,0 +1,33 @@
+{
+  "name": "Screenshot API Tool backend",
+  "version": "1.0.0",
+  "description": "A REST API to take website screenshots using Puppeteer with TypeScript",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "dev": "tsc --watch & node dist/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "puppeteer",
+    "screenshot",
+    "api",
+    "nodejs",
+    "express",
+    "typescript"
+  ],
+  "author": "Shahidul Islam",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "puppeteer": "^24.9.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.18",
+    "@types/express": "^5.0.2",
+    "@types/node": "^22.15.24",
+    "typescript": "^5.8.3"
+  }
+}
