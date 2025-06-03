@@ -7,7 +7,8 @@
     "build": "tsc",
     "start": "node dist/main.js",
     "dev": "tsc --watch & node dist/main.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "npx puppeteer browsers install chrome-headless-shell"
   },
   "keywords": [
     "puppeteer",
@@ -20,6 +21,7 @@
   "author": "Shahidul Islam",
   "license": "MIT",
   "dependencies": {
+    "@puppeteer/browsers": "^2.10.5",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "puppeteer": "24.9.0"
