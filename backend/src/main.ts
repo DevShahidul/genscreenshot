@@ -112,7 +112,7 @@ scrapper
       );
     });
   })
-  .catch((err) => {
+  .catch((err: unknown) => {
     console.error("Server failed to start due to browser launch error:", err);
     process.exit(1); // Exit if browser cannot be launched
   });

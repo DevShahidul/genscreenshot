@@ -44,7 +44,7 @@ export class ScreenshotScrapper {
           executablePath:
             process.env.NODE_ENV === "production"
               ? process.env.PUPPETEER_EXECUTABLE_PATH ||
-                "/usr/bin/google-chrome"
+                "/usr/bin/google-chrome-stable"
               : puppeteer.executablePath(),
           args: [
             "--no-sandbox",
@@ -58,7 +58,7 @@ export class ScreenshotScrapper {
           ],
         });
         console.log("Puppeteer browser launched successfully.");
-      } catch (error) {
+      } catch (error: unknown) {
         console.error("Failed to launch Puppeteer browser:", error);
         // Re-throw to allow main.ts to handle process exit
         throw error;
@@ -82,7 +82,7 @@ export class ScreenshotScrapper {
           console.log(`Closing inactive page for: ${url}`);
           page
             .close()
-            .catch((err) =>
+            .catch((err: unknown) =>
               console.error(`Error closing page for ${url}:`, err)
             );
           this.activePages.delete(url);
@@ -171,7 +171,7 @@ export class ScreenshotScrapper {
     try {
       await page.waitForNetworkIdle({ idleTime: 500, timeout: 5000 }); // Wait for 0 network requests for 500ms, max 5s
       console.log("Post-scroll network idle achived (or timed out).");
-    } catch (err) {
+    } catch (err: unknown) {
       // This catch block handles the timeout waitForNetworkIdl, which is common
       // for pages with constant background activity, but we continue anyway.
       console.warn(
@@ -276,7 +276,7 @@ export class ScreenshotScrapper {
       console.log(`Screenshot generated and cached for: ${screenshotCacheKey}`);
 
       return screenshotBuffer as Buffer;
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(`Error in takeScreenshot for ${targetUrl}:`, error);
 
       // If an error occurred with a page that was taken from the cache,
@@ -287,7 +287,7 @@ export class ScreenshotScrapper {
         );
         try {
           await page.close();
-        } catch (closeError) {
+        } catch (closeError: unknown) {
           console.error(
             `Error trying to close page after failed screenshot:`,
             closeError
@@ -311,7 +311,7 @@ export class ScreenshotScrapper {
       console.log(`Closing page for: ${url} during shutdown.`);
       await page
         .close()
-        .catch((err) =>
+        .catch((err: unknown) =>
           console.error(`Error closing page ${url} on shutdown:`, err)
         );
     }
