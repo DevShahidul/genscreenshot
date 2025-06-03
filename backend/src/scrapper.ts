@@ -41,6 +41,11 @@ export class ScreenshotScrapper {
       try {
         this.browserInstance = await puppeteer.launch({
           headless: "shell", // Use the new headless mode
+          executablePath:
+            process.env.NODE_ENV === "production"
+              ? process.env.PUPPETEER_EXECUTABLE_PATH ||
+                "/usr/bin/google-chrome"
+              : puppeteer.executablePath(),
           args: [
             "--no-sandbox",
             "--disable-setuid-sandbox",
