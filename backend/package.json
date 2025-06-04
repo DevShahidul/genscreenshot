@@ -22,6 +22,7 @@
   "license": "MIT",
   "dependencies": {
     "@puppeteer/browsers": "^2.10.5",
+    "@sparticuz/chromium": "^133.0.0",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "puppeteer": "24.9.0"

@@ -2,6 +2,7 @@
 
 import puppeteer, { Browser, KnownDevices, Page } from "puppeteer";
 import { DeviceName } from "./devices";
+import Chromium = require("@sparticuz/chromium");
 
 // Define interfaces for better type safety
 interface ActivePageEntry {
@@ -40,7 +41,7 @@ export class ScreenshotScrapper {
     if (!this.browserInstance) {
       try {
         this.browserInstance = await puppeteer.launch({
-          headless: false,
+          headless: true,
           args: [
             "--no-sandbox",
             "--disable-setuid-sandbox",
