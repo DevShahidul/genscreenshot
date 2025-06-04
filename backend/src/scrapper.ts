@@ -40,7 +40,7 @@ export class ScreenshotScrapper {
     if (!this.browserInstance) {
       try {
         this.browserInstance = await puppeteer.launch({
-          headless: "shell", // Use the new headless mode
+          headless: false,
           args: [
             "--no-sandbox",
             "--disable-setuid-sandbox",
